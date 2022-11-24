@@ -20,6 +20,7 @@ int main(int argc, char **argv)
     long long count = tosses / world_size;
     long long remain = tosses % world_size;
     double x, y, distance_squared;
+    MPI_Status status;
 
     // TODO: init MPI
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank); // find out process rank
@@ -55,8 +56,8 @@ int main(int argc, char **argv)
     {
         // TODO: process PI result
         long long local_number = 0;
-        for (int i=1; i <world_size; i++) {
-            MPI_Recv(&local_number, 1, MPI_LONG_LONG, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        for (int src=1; src<world_size; src++) {
+            MPI_Recv(&local_number, 1, MPI_LONG_LONG, src, 0, MPI_COMM_WORLD, &status);
             number_in_circle += local_number;
         }
         pi_result = 4 * number_in_circle /((double) tosses);

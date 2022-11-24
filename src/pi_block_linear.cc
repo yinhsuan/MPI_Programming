@@ -56,8 +56,8 @@ int main(int argc, char **argv)
     {
         // TODO: process PI result
         long long local_number = 0;
-        for (int src=1; src<world_size; src++) {
-            MPI_Recv(&local_number, 1, MPI_LONG_LONG, src, 0, MPI_COMM_WORLD, &status);
+        for (int worker=1; worker<world_size; worker++) {
+            MPI_Recv(&local_number, 1, MPI_LONG_LONG, worker, 0, MPI_COMM_WORLD, &status);
             number_in_circle += local_number;
         }
         pi_result = 4 * number_in_circle /((double) tosses);

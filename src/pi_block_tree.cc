@@ -23,12 +23,13 @@ int main(int argc, char **argv)
     long long int local_number = 0;
     long long int number_in_circle = 0;
     long long int count = tosses / world_size;
-    // long long int remain = tosses % world_size;
+    long long int remain = tosses % world_size;
     static unsigned int seed = world_rank;
     double x, y;
     MPI_Status status;
 
     // TODO: binary tree redunction
+    count = (world_rank == 0) ? (count + remain) : count;
     for (int toss = 0; toss<count; toss++) {
         x = (double) rand_r(&seed)/RAND_MAX;
         y = (double) rand_r(&seed)/RAND_MAX;

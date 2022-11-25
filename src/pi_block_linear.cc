@@ -27,6 +27,7 @@ int main(int argc, char **argv)
     double x, y, distance_squared;
     MPI_Status status;
 
+    count = (world_rank == 0) ? (count + remain) : count;
     for (int toss = 0; toss<count; toss++) {
         x = (double) rand_r(&seed)/RAND_MAX;
         y = (double) rand_r(&seed)/RAND_MAX;

@@ -16,12 +16,32 @@ int main(int argc, char **argv)
     // ---
 
     // TODO: MPI init
+    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+    static unsigned int seed = world_rank;
+    long long int number_in_circle = 0;
+    long long int count = tosses / world_size;
+    long long int remain = tosses % world_size;
+    long long int local_number = 0;
+    double x, y;
+
+    count = (world_rank == 0) ? (count + remain) : count;
+    for (int toss = 0; toss<count; toss++) {
+        x = (double) rand_r(&seed)/RAND_MAX;
+        y = (double) rand_r(&seed)/RAND_MAX;
+        if (x * x + y * y <= 1) {
+            local_number++;
+        }
+    }
 
     // TODO: use MPI_Reduce
+    MPI_Reduce(&local_number, &number_in_circle, 1, MPI_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
 
     if (world_rank == 0)
     {
         // TODO: PI result
+        pi_result = 4 * number_in_circle /((double) tosses);
 
         // --- DON'T TOUCH ---
         double end_time = MPI_Wtime();

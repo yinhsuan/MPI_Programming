@@ -54,7 +54,6 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 ```diff
 + A2-1: 
 + Because these two funciton <u>**will not return**</u> until they finish communication. Therefore, the process would be blocked when these two function calls.
-
 + The process can continue its execution only after these two function(MPI_Send and MPI_Recv) returns.
 ```
 
@@ -139,7 +138,7 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
 ```diff
 + A4-2:
-
+```
 | Function  | Description | Reference |
 | ------------- | ------------- | ------------- |
 | MPI_Isend  | MPI_Isend starts a nonblocking send  | [link](https://www.open-mpi.org/doc/v4.0/man3/MPI_Isend.3.php)  |
@@ -149,7 +148,7 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 | MPI_Waitall  | Blocks until all communication operations associated with active handles in the list complete, and returns the status of all these operations  | [link](https://www.open-mpi.org/doc/v4.1/man3/MPI_Waitall.3.php)  |
 | MPI_Test  | A call to MPI_Test returns flag = true if the operation identified by request is complete  | [link](https://www.open-mpi.org/doc/v4.0/man3/MPI_Test.3.php)  |
 | MPI_Testany  | MPI_Testany tests for completion of either one or none of the operations associated with active handles   | [link](https://www.open-mpi.org/doc/v4.0/man3/MPI_Testany.3.php)  |
-```
+
 
 ### 3. How the performance of non-blocking communication compares to the performance of blocking communication? (3 points)
 
@@ -210,9 +209,7 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
 ```diff
 + A7: 
-
 + Broadcast matrix A and matrix B to all the process. And then, splite matrix A's row into several division (a1+a2+...+aN = A) according to process#(N). Each process would calculate part of the result of C (ex: c1 = a1 * B).
-
 + After finishing the calculation in each process, they would return the result (c1, c2 ... cN) to the master process (rank 0). In the end, the master process would add up the received result and generate the final result: matrix C.
 
 ```

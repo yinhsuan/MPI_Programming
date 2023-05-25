@@ -137,8 +137,8 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
 ### 2. What are the MPI functions for non-blocking communication? (2 points)
 
-:::info
-#### A4-2:
+```diff
++ A4-2:
 
 | Function  | Description | Reference |
 | ------------- | ------------- | ------------- |
@@ -149,7 +149,7 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 | MPI_Waitall  | Blocks until all communication operations associated with active handles in the list complete, and returns the status of all these operations  | [link](https://www.open-mpi.org/doc/v4.1/man3/MPI_Waitall.3.php)  |
 | MPI_Test  | A call to MPI_Test returns flag = true if the operation identified by request is complete  | [link](https://www.open-mpi.org/doc/v4.0/man3/MPI_Test.3.php)  |
 | MPI_Testany  | MPI_Testany tests for completion of either one or none of the operations associated with active handles   | [link](https://www.open-mpi.org/doc/v4.0/man3/MPI_Testany.3.php)  |
-:::
+```
 
 ### 3. How the performance of non-blocking communication compares to the performance of blocking communication? (3 points)
 

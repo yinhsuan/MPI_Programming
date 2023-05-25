@@ -38,13 +38,10 @@ pp7 slots=1
 ```diff
 + A1-2:
 + A. To find out process rank:
-```C
 MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-```
+
 + B. To find out number of process
-```C
 MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-```
 ```
 
 ### Q2
